@@ -1,0 +1,20 @@
+$DATABASE:
+	   create database warehouse;
+	   use warehouse;
+$DB username & password:
+		$Username - root;
+		$password - Kavil@2329
+$TABLE'S:
+	$SignUp:
+		create table login(Name varchar(30)not null,Username varchar(30) not null primary key,Password varchar(30)not null);
+	$Item:
+		create table Item(Item_id int(5) not null primary key,Item_name varchar(30) not null,Item_price int(5) not null);
+	$stock:
+	  	create table stock(Item_id int(5) not null primary key,Item_name varchar(30) not null,Item_price int(5) not null,count int(4) not null,total_amount int(5) not null);
+	$purchase:
+	  	CREATE TABLE purchase (purchase_id INT AUTO_INCREMENT PRIMARY KEY,timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,Item_id INT,qty INT,rate DECIMAL(10, 2),amount DECIMAL(10, 2),FOREIGN KEY (Item_id) REFERENCES Item(Item_id));
+	$company:
+	   	CREATE TABLE company (company_id INT AUTO_INCREMENT PRIMARY KEY,company_name VARCHAR(255) NOT NULL,cash_balance DECIMAL(15, 2));
+	$sales:
+	   	CREATE TABLE sales (Sales_id INT AUTO_INCREMENT PRIMARY KEY,timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,Item_id INT NOT NULL,quantity INT NOT NULL,rate DECIMAL(10, 2) NOT NULL,amount DECIMAL(10, 2) NOT NULL,FOREIGN KEY (Item_id) REFERENCES Item(Item_id));
+	

@@ -1,0 +1,105 @@
+/* Reset default margins and paddings */
+body, h1, h4, p, table {
+    margin: 0;
+    padding: 0;
+}
+
+/* Set background color */
+body {
+    background-color: #f0f5f9;
+}
+
+/* Center align headings */
+h1, h4 {
+    text-align: center;
+}
+
+/* Apply styles to tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Style table headers */
+table tr:first-child {
+    background-color: #007bff;
+    color: #fff;
+}
+
+table tr th, table tr td {
+    padding: 10px;
+    text-align: center;
+}
+
+/* Style input fields */
+input[type="number"] {
+    width: 50px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Style buttons */
+input[type="submit"] {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/* Style but */
+.but{
+     padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.but:hover {
+    background-color: #b60000;
+}
+/* Style bu */
+.bu{
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.bu:hover {
+    background-color: #00b600;
+}
+/* Apply padding and margins to sections */
+div {
+    padding: 20px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+/* Style "Remove" button */
+.button {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #b60000;
+}
+/* Apply spacing between sections */
+div + div {
+    margin-top: 20px;
+}

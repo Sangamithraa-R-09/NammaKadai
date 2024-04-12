@@ -1,0 +1,221 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="static/css/order.css">
+        <script>
+            function calculateTotal(row,qtyid) {
+                //var quantity = parseFloat(row.querySelector(".quantity").value);
+                var quantity = document.getElementById("qty"+qtyid).value;                
+                var price = row;
+                if (!isNaN(quantity) && !isNaN(price)) {
+                    if(quantity<=0)
+                    {
+                        alert("Quantity should be Greater than Zero");
+                        document.getElementById("qty"+qtyid).value = 0;
+                        document.getElementById("tot"+qtyid).value = 0;
+                    }
+                    else
+                    {
+                    var total = quantity * price;
+                    document.getElementById("tot"+qtyid).value = total;
+                    }
+                }
+            }
+            function calculateTotal1(row1,qtyid1) {
+                //var quantity = parseFloat(row.querySelector(".quantity").value);
+                var quantity = document.getElementById("qt"+qtyid1).value;                
+                var price = row1;
+                if (!isNaN(quantity) && !isNaN(price)) {
+                    if(quantity<=0){
+                        alert("Quantity should be Greater than Zero");
+                        document.getElementById("qt"+qtyid1).value = 0;
+                        document.getElementById("to"+qtyid1).value = 0;
+                    }else{
+                        var total = quantity * price;
+                        total=total+2;
+                        document.getElementById("to"+qtyid1).value = total;
+                    }
+                }
+            }
+            function check(qty) {
+                var inputElement = document.getElementById("qt"+qty);
+                var inputValue = inputElement.value;
+    
+                if (inputValue === "") {
+                    alert("Input field is empty.");
+                    return (false);
+                }
+
+            }
+            function check1(qt) {
+                var inputElement = document.getElementById("qty"+qt);
+                
+                var inputValue = inputElement.value;
+                
+                if (inputValue === "") {
+                    alert("Input field is empty.");
+                    return (false);
+                }
+            }
+        </script>
+        {%if msg %}
+        <script>
+            window.onload=function(){
+                alert("Stock out of range");
+            };
+        </script>
+        {% endif %}
+    </head>
+    <body>
+        <br>
+        <div align="center">
+            <h1>Account Balance</h1>    
+            {% if com %}
+            <h4><p>Current Balance:{{com[2]}}</p></h4>
+            {% endif %}
+            <br>
+            <form action='/'>
+                <button class="but">Sign_Out</button>
+            </form>
+        </div>
+        <br>
+        <!--Stock Detail's-->
+        <div>
+            <h1 align="center">Stock Details</h1>
+            <table align="center">
+                <tr>
+                    <td>Product_Id</td>
+                    <td>Product Name</td>
+                    <td>Price </td>
+                    <td>Count</td>
+                    <td></td>
+                </tr>
+                {% for item in value %}
+                    <tr>
+                        <td>{{item[0]}}</td>
+                        <td>{{item[1]}}</td>
+                        <td>{{item[2]}}</td>
+                        <td>{{item[3]}}</td>
+                        <td>
+                            <a href="/remove/{{item[0]}}" class="button">Remove</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <br>
+        <!--Purchase Your Product's-->
+        <div>
+        <h1 align="center">Purchase</h1>
+        <table align="center">
+            <tr align="center">
+                <td>Item_id </td>
+                <td>Item_name </td>
+                <td>Item_price </td>
+                <td>Item quantity</td>
+                <td>Total_cost</td>
+                <td></td>
+            </tr>
+            {% for row in data %}
+            <form action="/add/{{row[0]}}" method="post">
+            <tr>
+                    <td>{{row[0]}}</td>
+                    <td>{{row[1]}}</td>
+                    <td>{{row[2]}}</td>
+                    <td><input type="number" min="0" id="qty{{loop.index}}" name="quantity" placeholder="0" onblur="calculateTotal({{row[2]}},{{loop.index}})"></td>
+                    <td><input type="number" id="tot{{loop.index}}" name="total_display" readonly></td>
+                    <td>
+                        <button class="bu" onclick="check1({{loop.index}})">Purchase</button>
+                    </td>   
+                </tr>
+            </form>
+            {% endfor %}
+        </table>
+        </div>
+        <br>
+        <!--Sale Your Product-->
+        <div>
+            <h1 align="center">Sale</h1>
+        <table align="center">
+            <tr align="center">
+                <td>Product_id</td>
+                <td>Product_name</td>
+                <td>Product_price</td>
+                <td>Product_quvantity</td>
+                <td>Quantity</td>
+                <td>Rate</td>
+                <td></td>
+            </tr>
+            {% for j in value %}
+            <form action="/sale/{{j[0]}}" method="post">
+            <tr>
+                    <td>{{j[0]}}</td>
+                    <td>{{j[1]}}</td>
+                    <td>{{j[2]}}</td>
+                    <td id="c">{{j[3]}}</td>
+                    <td><input type="number" min="0" id="qt{{loop.index}}" name="count" placeholder="0" onblur="calculateTotal1({{j[2]}},{{loop.index}})"></td>
+                    <td><input type="number" id="to{{loop.index}}" name="display" readonly></td>
+                    <td>
+                        <button class="bu" onclick="check( {{loop.index}})">Sale</button>
+
+                    </td>   
+                </tr>
+            </form>
+            {% endfor %}
+        </table>
+        </div>
+        <br>
+        <!--Purchase Product Detail's-->
+        <div>
+            <h1 align="center">Purchase History</h1>
+            <table align="center">
+                <tr>
+                    <td>Purchase Id</td>
+                    <td>DateTime</td>
+                    <td>Item_id</td>
+                    <td>Quvantity</td>
+                    <td>Rate</td>
+                    <td>Cash_Balance</td>
+                </tr>
+                {% for i in buy %}
+                    <tr>
+                        <td>{{i[0]}}</td>
+                        <td>{{i[1]}}</td>
+                        <td>{{i[2]}}</td>
+                        <td>{{i[3]}}</td>
+                        <td>{{i[4]}}</td>
+                        <td>{{i[5]}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <br>
+        <!--Sold Product Detail's-->
+        <div class="container">
+            <h1 align="center">Sales History</h1>
+            <table align="center">
+                <thead>
+                    <tr>
+                        <td>Sales_Id</td>
+                        <td>DateTime</td>
+                        <td>Item_id</td>
+                        <td>Quvantity</td>
+                        <td>Rate</td>
+                        <td>Cash_Balance</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for k in sale %}
+                        <tr>
+                            <td>{{k[0]}}</td>
+                            <td>{{k[1]}}</td>
+                            <td>{{k[2]}}</td>
+                            <td>{{k[3]}}</td>
+                            <td>{{k[4]}}</td>
+                            <td>{{k[5]}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>    
+            </table>
+        </div>
+    </body>
+</html>

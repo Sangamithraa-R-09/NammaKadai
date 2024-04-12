@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Global Market</title>
+        <link rel="stylesheet" href="static/css/gl_admin.css">    
+    </head>
+    <body>
+        <center>
+                    <h1>Product List</h1>
+                    <form action='/'>
+                        <button class="button">Sign_Out</button>
+                    </form>
+                    <br>
+                    <form action={{url_for('insert')}} method="post">
+                    <input type="number" name="id" placeholder="product id" id="">
+                    <input type="text" name="pn" placeholder="product name">
+                    <input type="number" name="pa" placeholder="product price">
+                    <button class="but">Add_Item</button>
+                    </form>
+                        
+        </center>
+        <br>            
+                <table align="center">
+                    <tr align="center">
+                    <td>Item_id </td>
+                    <td>Item_name </td>
+                    <td>Item_price </td>
+                    <td></td>
+                </tr>
+                {% for row in data %}
+                <tr>
+                    <td>{{row[0]}}</td>
+                    <td>{{row[1]}}</td>
+                    <td>{{row[2]}}</td>
+                    <td>
+                        <a href="/delete/{{row[0]}}" class="button">Remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+        </table>
+    </body>    
+</html>
